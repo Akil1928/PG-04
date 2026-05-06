@@ -1,4 +1,6 @@
-package model;
+package model.LinkedList;
+
+import model.Node;
 
 public class DoublyLinkedList<T> implements List<T> {
 

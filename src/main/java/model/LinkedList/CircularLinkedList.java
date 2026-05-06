@@ -1,6 +1,8 @@
-package model;
+package model.LinkedList;
 
-public class LinkedList <T> implements List<T> {
+import model.Node;
+
+public class CircularLinkedList<T> implements List<T> {
 
     private Node<T> head;//inicio de la lista
     private Node<T> tail;//final de la lista
@@ -90,12 +92,9 @@ public class LinkedList <T> implements List<T> {
                     return;
                 }
                 prev = prev.next; //Muevo el auxiliar
-                if(prev.next == null) break;
             }
-            tail = tail!=null? getNodeByIndex(indexOf(getLast())) : null;
         }
     }
-
 
     @Override
     public T removeFirst() throws ListException {
