@@ -8,21 +8,12 @@ public class CircularDoublyLinkedList<T> implements List<T>, Cloneable {
 
     private Node<T> head; //inicio de la lista
     private Node<T> tail; //cola o final de la lista
-    private ListType listType;
+
 
     public CircularDoublyLinkedList() {
         this.head = this.tail = null;
     }
 
-    /** settea el tipo de lista*/
-    public void setListType(ListType listType) {
-        this.listType = listType;
-    }
-
-    @Override
-    public ListType getListType() {
-        return this.listType;
-    }
 
     /** Devuelve el nodo HEAD (puede ser null). */
     public Node<T> getHead() {
@@ -293,7 +284,6 @@ public class CircularDoublyLinkedList<T> implements List<T>, Cloneable {
         return getNodeByIndex(index).data;
     }
 
-    @Override
     public Node<T> getNodeByIndex(int index) throws ListException {
         if(isEmpty()){
             throw new ListException("Circular Doubly Linked List is empty");
@@ -332,35 +322,5 @@ public class CircularDoublyLinkedList<T> implements List<T>, Cloneable {
     }
 
     //===========AYUDAS=========//
-
-    private boolean equals(T a, T b)  {
-        return a==null ? b==null : a.equals(b);
-    }
-
-    public Node<T> getNode(T element) throws ListException {
-        if(isEmpty()) {
-            throw new ListException("Circular Doubly Linked List is empty");
-        }
-        Node<T> aux = head;
-        while(aux!=null){
-            if(equals(aux.data, element)) return aux;
-            aux = aux.next;
-        }
-        return null;
-    }
-
-    public Node<T> getNodeByIndex(int index) throws ListException {
-        if(isEmpty()) {
-            throw new ListException("Circular Doubly Linked List is empty");
-        }
-        Node<T> aux = head;
-        int pos = 1; //la posición del primer nodo
-        while(aux!=null){
-            if(pos==index) return aux;
-            aux = aux.next;
-            pos++;
-        }
-        return null;
-    }
 
 }
