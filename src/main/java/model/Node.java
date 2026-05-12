@@ -9,4 +9,10 @@ public class Node<T> {
         this.data = data;
         this.next = this.prev = null; //por default que apunta a nulo
     }
+    //Constructor sobrecargado
+    //para crear un nodo vacio
+    public Node() {
+        this.next = this.prev = null;
+
+    }
 }
