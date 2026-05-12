@@ -1,5 +1,7 @@
 package model.LinkedList;
 
+import model.Node;
+
 public interface List<T> {
     public int size() throws ListException; // Devuelve el número de elementos en la lista
     public void clear(); //Remueve todos los elementos de la lista
@@ -19,4 +21,6 @@ public interface List<T> {
     public T getPrev(T element) throws ListException; //Devuelve el elemento anterior al actual en la lista
     public T getNext(T element) throws ListException; //Devuelve el elemento posterior al actual en la lista
     public T get(int index) throws ListException; //Devuelve el elemento en la posición indicada
+
+    Node<T> getNodeByIndex(int index) throws ListException;
 }

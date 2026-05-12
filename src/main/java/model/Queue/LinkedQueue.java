@@ -135,7 +135,7 @@ public class LinkedQueue<T> implements MyQueue<T> {
                 auxQueue.enQueue(deQueue());
 
                 if (!isEmpty()) {
-                    sb.append(", ");
+                    sb.append(" → ");
                 }
             }
 

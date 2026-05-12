@@ -32,12 +32,28 @@ public class ArrayQueue <T> implements MyQueue<T> {
     public boolean isEmpty() {
         return front == rear;
     }
-
     @Override
     public int indexOf(T element) throws QueueException {
-        return 0;
-    }
+        if (isEmpty())
+            throw new QueueException("Linked Queue is empty");
 
+        HeaderLinkedQueue<T> aux = new HeaderLinkedQueue<>();
+        int index = 1;
+        int pos = -1;
+        while (!isEmpty()) {
+            if (equals(front(), element)) {
+                pos = index;
+            }
+            aux.enQueue(deQueue());
+            index ++;
+        }
+
+        while (!aux.isEmpty())
+            enQueue(aux.deQueue());
+
+
+        return pos;
+    }
     @Override
     public void enQueue(T element) throws QueueException {
         if (size() == data.length)
@@ -60,6 +76,8 @@ public class ArrayQueue <T> implements MyQueue<T> {
     public void enQueue(T element, Integer priority) throws QueueException {
 
     }
+
+    
 
     @Override
     public boolean contains(T element) throws QueueException {
@@ -102,5 +120,9 @@ public class ArrayQueue <T> implements MyQueue<T> {
             }
         }
         return sb.toString();
+    }
+
+    private boolean equals(T a, T b) {
+        return a == null ? b == null : a.equals(b);
     }
 }

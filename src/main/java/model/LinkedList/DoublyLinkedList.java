@@ -124,23 +124,23 @@ public class DoublyLinkedList<T> implements List<T> {
     }
 //prueba
 
-@Override
-public T removeFirst() throws ListException {
-    if (isEmpty()) {
-        throw new ListException("Linked List is empty");
+    @Override
+    public T removeFirst() throws ListException {
+        if (isEmpty()) {
+            throw new ListException("Linked List is empty");
+        }
+
+        T first = head.data;
+        head = head.next;
+
+        if (head != null) {
+            head.prev = null;
+        } else {
+            tail = null;
+        }
+
+        return first;
     }
-
-    T first = head.data;
-    head = head.next;
-
-    if (head != null) {
-        head.prev = null;
-    } else {
-        tail = null;
-    }
-
-    return first;
-}
 
     @Override
     public T removeLast() throws ListException {

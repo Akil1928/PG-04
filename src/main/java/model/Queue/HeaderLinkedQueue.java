@@ -7,9 +7,9 @@ public class HeaderLinkedQueue<T> implements MyQueue<T> {
     private Node<T> rear;
     private int size;
 
-    public HeaderLinkedQueue(int capacity) {
+    public HeaderLinkedQueue() {
         rear = rear = new Node<T>();
-        size=0;
+        size = 0;
     }
 
     @Override
@@ -25,39 +25,33 @@ public class HeaderLinkedQueue<T> implements MyQueue<T> {
 
     @Override
     public boolean isEmpty() {
-        return front == null;
+        return front == rear;
     }
 
     @Override
     public int indexOf(T element) throws QueueException {
         if (isEmpty())
-            throw new QueueException("Linked Queue is empty");
-
-        Node<T> aux = front;
+            throw new QueueException("Header Linked Queue is empty");
+        HeaderLinkedQueue<T> aux = new HeaderLinkedQueue<>();
         int index = 1;
-
-        while (aux != null) {
-            if (equals(aux.data, element)) {
-                return index;
+        int pos = -1;
+        while (!isEmpty()) {
+            if (equals(front(), element)) {
+                pos = index;
             }
+            aux.enQueue(deQueue());
             index++;
-            aux = aux.next;
         }
-
-        return -1;
+        while (!aux.isEmpty())
+            enQueue(aux.deQueue());
+        return pos;
     }
 
     @Override
     public void enQueue(T element) throws QueueException {
         Node<T> node = new Node<>(element);
-
-        if (isEmpty()) {
-            front = rear = node;
-        } else {
-            rear.next = node;
-            rear = node;
-        }
-
+        rear.next = node;
+        rear = node;
         size++;
     }
 
@@ -66,15 +60,13 @@ public class HeaderLinkedQueue<T> implements MyQueue<T> {
         if (isEmpty())
             throw new QueueException("Linked Queue is empty");
 
-        T element = front.data;
+        T element = front.next.data;
 
         // Caso 1. Cuando solo hay un elemento
-        if (front == rear) {
+        if (front.next == rear) {
             clear();
-        }
-        // Caso 2. Cuando hay más de un elemento
-        else {
-            front = front.next;
+        } else {
+            front.next = front.next.next;
             size--;
         }
 
@@ -91,24 +83,27 @@ public class HeaderLinkedQueue<T> implements MyQueue<T> {
         if (isEmpty())
             throw new QueueException("Linked Queue is empty");
 
-        Node<T> aux = front;
-
-        while (aux != null) {
-            if (equals(aux.data, element)) {
-                return true;
+        HeaderLinkedQueue<T> aux = new HeaderLinkedQueue<>();
+        Boolean finded = false;
+        while (!isEmpty()) {
+            if (equals(front(), element)) {
+                finded = true;
             }
-            aux = aux.next;
+            aux.enQueue(deQueue());
         }
-
-        return false;
+        while(!aux.isEmpty())
+            enQueue(aux.deQueue());
+        return finded;
     }
+
+
 
     @Override
     public T peek() throws QueueException {
         if (isEmpty())
             throw new QueueException("Linked Queue is empty");
 
-        return front.data;
+        return front.next.data;
     }
 
     @Override
@@ -116,17 +111,17 @@ public class HeaderLinkedQueue<T> implements MyQueue<T> {
         if (isEmpty())
             throw new QueueException("Linked Queue is empty");
 
-        return front.data;
+        return front.next.data;
     }
 
     @Override
     public String toString() {
         if (isEmpty()) return "Linked Queue is empty";
 
-        StringBuilder sb = new StringBuilder(" FRONT → ");
+        StringBuilder sb = new StringBuilder(" FRONT → [] → ");
 
         try {
-            HeaderLinkedQueue<T> auxQueue = new HeaderLinkedQueue<>(size());
+            HeaderLinkedQueue<T> auxQueue = new HeaderLinkedQueue<>();
 
             while (!isEmpty()) {
                 sb.append("[").append(peek()).append("]");
