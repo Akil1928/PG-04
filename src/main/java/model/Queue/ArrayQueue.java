@@ -101,5 +101,6 @@ public class ArrayQueue <T> implements MyQueue<T> {
                 throw new RuntimeException(e);
             }
         }
+        return sb.toString();
     }
 }

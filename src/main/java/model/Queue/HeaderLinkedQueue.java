@@ -19,7 +19,7 @@ public class HeaderLinkedQueue<T> implements MyQueue<T> {
 
     @Override
     public void clear() {
-        front = rear = null;
+        front = rear = new Node<T>();
         size = 0;
     }
 
